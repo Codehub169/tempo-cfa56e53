@@ -1,0 +1,255 @@
+/* General Body Styles */
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Light grayish-blue background */
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50; /* Dark blue-gray */
+    color: #ecf0f1; /* Light gray-silver */
+    padding: 1.5em 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 .material-icons-outlined {
+    font-size: 1.2em; /* Adjust icon size relative to h1 */
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Main Content Area */
+main.container {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+/* Cards for Sections */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    padding: 25px;
+}
+
+.card h2 {
+    font-size: 1.8em;
+    color: #34495e; /* Slightly lighter dark blue */
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.card h2 .material-icons-outlined {
+    margin-right: 12px;
+    color: #5DADE2; /* A pleasant blue for icons */
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="date"]:focus,
+.form-group input[type="number"]:focus {
+    border-color: #5DADE2; /* Highlight focus with blue */
+    outline: none;
+}
+
+/* Exercise Entry Styles */
+.exercise-entry {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.exercise-entry h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+.form-group.inline {
+    display: flex;
+    gap: 15px;
+}
+
+.form-group.inline > div {
+    flex: 1;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #5DADE2; /* Blue */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-primary .material-icons-outlined {
+    margin-right: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #3498DB; /* Darker blue on hover */
+}
+
+/* Workout History & PR Lists */
+.history-list, .pr-list {
+    list-style: none;
+    padding: 0;
+}
+
+.workout-item {
+    background-color: #fdfdfe;
+    border: 1px solid #e7e7e7;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.workout-header {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.exercise-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 10px;
+    color: #555;
+}
+
+.exercise-list li {
+    margin-bottom: 5px;
+}
+
+.pr-list li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 1.05em;
+}
+
+.pr-list li:last-child {
+    border-bottom: none;
+}
+
+.pr-list strong {
+    color: #3498DB;
+}
+
+.pr-value {
+    font-weight: bold;
+    color: #27AE60; /* Green for positive values */
+}
+
+/* Progress Charts Section */
+#progress-charts p {
+    font-style: italic;
+    color: #777;
+}
+
+#mainProgressChart {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+/* Footer */
+footer {
+    background-color: #34495e; /* Slightly lighter dark blue for footer */
+    color: #bdc3c7; /* Lighter gray for footer text */
+    text-align: center;
+    padding: 1.5em 0;
+    margin-top: 30px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .card h2 {
+        font-size: 1.5em;
+    }
+
+    .form-group.inline {
+        flex-direction: column;
+        gap: 0; /* Remove gap if stacking */
+    }
+    .form-group.inline > div {
+        margin-bottom: 15px;
+    }
+    .form-group.inline > div:last-child {
+        margin-bottom: 0;
+    }
+}

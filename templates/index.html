@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><span class="material-icons-outlined">fitness_center</span> Fitness Tracker</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="log-workout" class="card">
+            <h2><span class="material-icons-outlined">add_circle_outline</span> Log New Workout</h2>
+            <form action="{{ url_for('add_workout_route') }}" method="POST">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="workout_type">Workout Type:</label>
+                    <input type="text" id="workout_type" name="workout_type" placeholder="e.g., Strength, Cardio, Full Body" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration (minutes):</label>
+                    <input type="number" id="duration" name="duration" min="1" placeholder="e.g., 60" required>
+                </div>
+
+                <h3>Exercises</h3>
+                <div id="exercises-container">
+                    <!-- Initial set of exercise inputs (e.g., 3 sets) -->
+                    {% for i in range(3) %}
+                    <div class="exercise-entry">
+                        <h4>Exercise {{ i + 1 }}</h4>
+                        <div class="form-group">
+                            <label for="exercise_name_{{i}}">Name:</label>
+                            <input type="text" id="exercise_name_{{i}}" name="exercise_names" placeholder="e.g., Bench Press">
+                        </div>
+                        <div class="form-group inline">
+                            <div>
+                                <label for="exercise_sets_{{i}}">Sets:</label>
+                                <input type="number" id="exercise_sets_{{i}}" name="exercise_sets" min="1" placeholder="3">
+                            </div>
+                            <div>
+                                <label for="exercise_reps_{{i}}">Reps:</label>
+                                <input type="number" id="exercise_reps_{{i}}" name="exercise_reps" min="1" placeholder="10">
+                            </div>
+                            <div>
+                                <label for="exercise_weight_{{i}}">Weight (kg/lbs):</label>
+                                <input type="number" id="exercise_weight_{{i}}" name="exercise_weights" step="0.01" min="0" placeholder="50.5">
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- In a future version, JS could add more exercise entries dynamically -->
+
+                <button type="submit" class="btn-primary"><span class="material-icons-outlined">save</span> Save Workout</button>
+            </form>
+        </section>
+
+        <section id="workout-history" class="card">
+            <h2><span class="material-icons-outlined">history</span> Workout History</h2>
+            {% if workouts %}
+                <div class="history-list">
+                {% for workout in workouts %}
+                    <div class="workout-item">
+                        <div class="workout-header">
+                            <strong>{{ workout.type }}</strong> - {{ workout.date }} ({{ workout.duration }} mins)
+                        </div>
+                        {% if workout.exercises %}
+                        <ul class="exercise-list">
+                            {% for exercise in workout.exercises %}
+                            <li>{{ exercise.name }}: {{ exercise.sets }} sets x {{ exercise.reps }} reps @ {{ exercise.weight }} kg/lbs</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p>No exercises logged for this workout.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>No workouts logged yet. Add one above!</p>
+            {% endif %}
+        </section>
+
+        <section id="personal-records" class="card">
+            <h2><span class="material-icons-outlined">emoji_events</span> Personal Records</h2>
+            {% if personal_records %}
+                <ul class="pr-list">
+                {% for pr in personal_records %}
+                    <li>
+                        <strong>{{ pr.exercise_name }}</strong> ({{ pr.metric.replace('_', ' ') | title }}):
+                        <span class="pr-value">{{ pr.value }} kg/lbs</span> on {{ pr.date_achieved }}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No personal records established yet. Keep working out!</p>
+            {% endif %}
+        </section>
+        
+        <section id="progress-charts" class="card">
+            <h2><span class="material-icons-outlined">show_chart</span> Progress Charts</h2>
+            <p><em>Charts will be displayed here. (Requires JavaScript)</em></p>
+            <canvas id="mainProgressChart"></canvas> <!-- Placeholder for Chart.js -->
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Fitness Tracker. Stay Fit!</p>
+        </div>
+    </footer>
+
+    <!-- Link to main.js which will be implemented later -->
+    <!-- <script src="{{ url_for('static', filename='js/main.js') }}"></script> -->
+</body>
+</html>
