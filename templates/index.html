@@ -16,6 +16,16 @@
     </header>
 
     <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
         <section id="log-workout" class="card">
             <h2><span class="material-icons-outlined">add_circle_outline</span> Log New Workout</h2>
             <form action="{{ url_for('add_workout_route') }}" method="POST">
@@ -34,8 +44,7 @@
 
                 <h3>Exercises</h3>
                 <div id="exercises-container">
-                    <!-- Initial set of exercise inputs (e.g., 3 sets) -->
-                    {% for i in range(3) %}
+                    {% for i in range(5) %} {# Provide 5 empty slots for exercises by default #}
                     <div class="exercise-entry">
                         <h4>Exercise {{ i + 1 }}</h4>
                         <div class="form-group">
@@ -59,7 +68,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <!-- In a future version, JS could add more exercise entries dynamically -->
+                <p class="form-hint"><em>Only exercises with a name and valid numeric values for sets, reps, and weight will be logged. You can leave unused exercise slots blank.</em></p>
 
                 <button type="submit" class="btn-primary"><span class="material-icons-outlined">save</span> Save Workout</button>
             </form>
@@ -81,7 +90,7 @@
                             {% endfor %}
                         </ul>
                         {% else %}
-                        <p>No exercises logged for this workout.</p>
+                        <p class="no-exercises-message">No exercises logged for this workout.</p>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -109,8 +118,10 @@
         
         <section id="progress-charts" class="card">
             <h2><span class="material-icons-outlined">show_chart</span> Progress Charts</h2>
-            <p><em>Charts will be displayed here. (Requires JavaScript)</em></p>
-            <canvas id="mainProgressChart"></canvas> <!-- Placeholder for Chart.js -->
+            <p><em>Charts require JavaScript and workout data to display.</em></p>
+            <div class="chart-container">
+                <canvas id="mainProgressChart"></canvas>
+            </div>
         </section>
 
     </main>
@@ -121,7 +132,11 @@
         </div>
     </footer>
 
-    <!-- Link to main.js which will be implemented later -->
-    <!-- <script src="{{ url_for('static', filename='js/main.js') }}"></script> -->
+    {# Pass workout data to JavaScript for charting #}
+    <script>
+        const workoutDataForChart = {{ workouts|tojson|safe }};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
